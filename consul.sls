@@ -75,4 +75,4 @@ consul_template:
         template:
           source: /etc/consul-template/tmpl-source/all-services.ctmpl
           destination: /root/.all-services.txt
-          command: echo "Template ran at: "$(date) >> /root/.all-services.txt
+          command: 'echo "Template ran at: "$(date) >> /root/.all-services.txt'
