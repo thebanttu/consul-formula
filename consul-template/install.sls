@@ -27,10 +27,10 @@ consul-template-install:
   file.rename:
     - name: /usr/local/bin/consul-template-{{ consul_template.version }}
     - source: /tmp/consul-template
-    - require:
-      - file: /usr/local/bin
-    - watch:
-      - cmd: consul-template-extract
+    #- require:
+    #  - file: /usr/local/bin
+    #- watch:
+    #  - cmd: consul-template-extract
 
 consul-template-clean:
   file.absent:
