@@ -87,3 +87,9 @@ consul-link:
     - name: {{ consul.bin_dir ~ 'consul' }}
     - watch:
       - file: consul-install
+
+install-check-app-script:
+  file.managed:
+    - name: /usr/local/bin/check_app
+    - source: salt://consul/files/check_apps.py
+    - mode: 0755
