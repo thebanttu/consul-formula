@@ -12,7 +12,6 @@ consul-template-tmpl-file-{{ loop.index }}:
   file.managed:
     - source: {{ tmpl.source }}
     - name: /etc/consul-template/tmpl-source/{{ tmpl.name }}.ctmpl
-    - template: {{ tmpl.template_engine }}
 
 consul-template.d-tmpl-{{ loop.index }}:
   file.serialize:
