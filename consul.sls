@@ -49,7 +49,7 @@ consul:
       checks:
         - name: check-service
           args:
-            - check_app
+            - nc
             - -vz
             - {{ ip }}
             - "{{ default_service_port }}"
