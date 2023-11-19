@@ -4,7 +4,7 @@
 {%- set default_service_port = 514 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
 {%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
-{
+
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
