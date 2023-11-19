@@ -1,8 +1,8 @@
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rand_str = salt['random.get_str'](length=3,punctuation=false) -%}
 {%- set default_service_port = 8008 -%}
-{%- set dc = "nairobi-1" -%}
-{%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip')
+{%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
+{%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
 {
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
