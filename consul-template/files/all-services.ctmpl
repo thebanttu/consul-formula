@@ -1,5 +1,5 @@
 {{ range services }}
-{{ .Name
+{{ .Name }}
 {{ range service .Name }}
    - {{ .Node }}: {{ .Address }}
 {{ end }}{{ end }}
