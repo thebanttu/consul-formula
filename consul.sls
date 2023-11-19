@@ -1,7 +1,7 @@
-{%- set name = "default_node" -%}
+{%- set name = "biko-admin" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rand_str = salt['random.get_str'](length=3,punctuation=false) -%}
-{%- set default_service_port = 514 -%}
+{%- set default_service_port = 9000 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
 {%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
 {
@@ -21,7 +21,7 @@ consul:
 
   config:
     server: false
-    node_name: {{ name }}-{{ rand_str }}
+    node_name: {{ name }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
@@ -44,15 +44,14 @@ consul:
     data_dir: /var/consul
 
   register:
-    - name: rsyslog
+    - name: biko-admin
       port: {{ default_service_port }}
       checks:
         - name: check-service
           args:
-            - nc
-            - -vz
-            - {{ ip }}
-            - "{{ default_service_port }}"
+            - curl
+            - -s
+            - {{ ip }}:{{ default_service_port }}
           interval: 10s
 
   # scripts:
