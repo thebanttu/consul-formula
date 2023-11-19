@@ -1,4 +1,4 @@
-{%- set name = "monitoring" -%}
+{%- set name = "default_node" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rand_str = salt['random.get_str'](length=3,punctuation=false) -%}
 {%- set default_service_port = 514 -%}
