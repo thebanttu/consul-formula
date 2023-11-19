@@ -91,5 +91,5 @@ consul-link:
 install-check-app-script:
   file.managed:
     - name: /usr/local/bin/check_app
-    - source: salt://consul/files/check_apps.py
+    - source: salt://consul/files/check_app.py
     - mode: 0755
