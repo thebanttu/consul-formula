@@ -1,3 +1,4 @@
+{%- set name = "default-node" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rand_str = salt['random.get_str'](length=3,punctuation=false) -%}
 {%- set default_service_port = 8008 -%}
@@ -20,6 +21,7 @@ consul:
 
   config:
     server: false
+    node_name: {{ name }}-{{ rand_str }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
