@@ -1,7 +1,8 @@
-{%- set name = "monitoring" -%}
+{%- set name = "mysql" -%}
+{%- set service_name = name -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
-{%- set rand_str = salt['random.get_str'](length=3,punctuation=false) -%}
-{%- set default_service_port = 514 -%}
+{%- set rnum = salt['random.rand_int'](start=1,end=9) -%}
+{%- set default_service_port = 3306 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
 {%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
 
@@ -21,7 +22,7 @@ consul:
 
   config:
     server: false
-    node_name: {{ name }}-{{ rand_str }}
+    node_name: {{ name }}-{{ rnum }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
@@ -44,7 +45,7 @@ consul:
     data_dir: /var/consul
 
   register:
-    - name: rsyslog
+    - name: {{ service_name }}
       port: {{ default_service_port }}
       checks:
         - name: check-service
