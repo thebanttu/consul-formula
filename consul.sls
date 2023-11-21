@@ -45,20 +45,30 @@ consul:
     data_dir: /var/consul
 
   register:
-    - name: {{ service_name }}
-      port: {{ default_service_port }}
+    - name: legacy-mo-api
+      port: 8008
       checks:
-        - name: check-service
+        - name: check-legacy-mo-api
           args:
-            - nc
-            - -vz
-            - {{ ip }}
-            - "{{ default_service_port }}"
-            - " || "
-            - return
-            - "3"
+          - curl
+          - localhost:8008
           interval: 10s
-
+    - name: legacy-queue-api
+      port: 9000
+      checks:
+        - name: check-legacy-queue-api
+          args:
+          - curl
+          - localhost:9000
+          interval: 10s
+    - name: legacy-c2b-api
+      port: 8000
+      checks:
+        - name: check-legacy-c2b-api
+          args:
+          - curl
+          - localhost:8000
+          interval: 10s
   # scripts:
   #   - source: salt://files/consul/check_redis.py
   #     name: /usr/local/share/consul/check_redis.py
