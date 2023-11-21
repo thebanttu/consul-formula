@@ -93,3 +93,9 @@ install-check-app-script:
     - name: /usr/local/bin/check_app
     - source: salt://consul/files/check_app.py
     - mode: 0755
+
+install-check-port-script:
+  file.managed:
+    - name: /usr/local/bin/check_port
+    - source: salt://consul/files/check_port.py
+    - mode: 0755
