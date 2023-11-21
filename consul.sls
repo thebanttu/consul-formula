@@ -50,10 +50,8 @@ consul:
       checks:
         - name: check-service
           args:
-            - nc
-            - -vz
-            - {{ ip }}
-            - "{{ default_service_port }}"
+            - /usr/local/bin/check_port
+            - {{ default_service_port }}
           interval: 10s
 
   # scripts:
