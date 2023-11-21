@@ -1,4 +1,4 @@
-{%- set name = "api-v2" -%}
+{%- set name = "legacy-api" -%}
 {%- set service_name = name -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rstr = salt['random.get_str'](punctuation=False,length=4) -%}
