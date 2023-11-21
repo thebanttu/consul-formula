@@ -52,6 +52,8 @@ consul:
           args:
             - /usr/local/bin/check_port
             - "{{ default_service_port }}"
+            - -s
+            - "{{ ip }}"
           interval: 10s
 
   # scripts:
