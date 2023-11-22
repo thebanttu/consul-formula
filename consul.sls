@@ -1,7 +1,7 @@
 {%- set name = "mysql" -%}
 {%- set service_name = name -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
-{%- set rnum = salt['random.rand_int'](start=1,end=9) -%}
+{%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set default_service_port = 3306 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
 {%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
@@ -22,7 +22,7 @@ consul:
 
   config:
     server: false
-    node_name: {{ name }}-{{ rnum }}
+    node_name: {{ name }}-{{ rstr }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
