@@ -53,6 +53,22 @@ consul:
             - /usr/local/bin/check_port
             - "{{ default_service_port }}"
           interval: 10s
+    - name: node-exporter
+      port: "9100"
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "9100"
+          interval: 10s
+    - name: nginx-exporter
+      port: "9113"
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "9113"
+          interval: 10s
 
   # scripts:
   #   - source: salt://files/consul/check_redis.py
