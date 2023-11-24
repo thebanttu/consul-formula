@@ -50,24 +50,24 @@ consul:
       checks:
         - name: check-legacy-mo-api
           args:
-          - /usr/local/bin/check_port
-          - "8008"
+          - curl
+          - localhost:8008
           interval: 10s
     - name: legacy-queue-api
       port: 9000
       checks:
         - name: check-legacy-queue-api
           args:
-          - /usr/local/bin/check_port
-          - "9000"
+          - curl
+          - localhost:9000
           interval: 10s
     - name: legacy-c2b-api
       port: 8000
       checks:
         - name: check-legacy-c2b-api
           args:
-          - /usr/local/bin/check_port
-          - "8000"
+          - curl
+          - localhost:8000
           interval: 10s
     - name: node-exporter
       port: 9100
