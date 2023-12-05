@@ -1,10 +1,10 @@
-{%- set name = "mysql" -%}
-{%- set service_name = name -%}
+{%- set name = "monitoring-metrics" -%}
+{%- set default_service_name = "prometheus" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
-{%- set default_service_port = 3306 -%}
+{%- set default_service_port = 9090 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
-{%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
+{%- set leader_ip = ip -%}
 
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
@@ -45,7 +45,7 @@ consul:
     data_dir: /var/consul
 
   register:
-    - name: {{ service_name }}
+    - name: {{ default_service_name }}
       port: {{ default_service_port }}
       checks:
         - name: check-service
