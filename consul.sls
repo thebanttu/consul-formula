@@ -1,10 +1,10 @@
-{%- set name = "monitoring-metrics" -%}
-{%- set default_service_name = "prometheus" -%}
+{%- set name = "logging" -%}
+{%- set default_service_name = "rsyslog" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
-{%- set default_service_port = 9090 -%}
+{%- set default_service_port = 10514 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
-{%- set leader_ip = ip -%}
+{%- set leader_ip = salt['cmd.shell']('cat /root/.leader_ip') -%}
 
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
@@ -22,7 +22,7 @@ consul:
 
   config:
     server: false
-    node_name: {{ name }}-{{ rstr }}
+    node_name: {{ name }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
@@ -54,6 +54,22 @@ consul:
             - "{{ default_service_port }}"
             - -s
             - "{{ ip }}"
+          interval: 10s
+    - name: loki
+      port: 3100
+      checks:
+        - name: check-loki-service
+          args:
+            - /usr/local/bin/check_port
+            - 3100
+          interval: 10s
+    - name: promtail
+      port: 9080
+      checks:
+        - name: check-promtail-service
+          args:
+            - /usr/local/bin/check_port
+            - 9080
           interval: 10s
 
   # scripts:
