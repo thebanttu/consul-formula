@@ -55,6 +55,16 @@ consul:
             - -s
             - "{{ ip }}"
           interval: 10s
+    - name: grafana
+      port: 3000
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "3000"
+            - -s
+            - "3000"
+          interval: 10s
 
   # scripts:
   #   - source: salt://files/consul/check_redis.py
