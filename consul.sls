@@ -1,6 +1,7 @@
 {%- set name = "monitoring-metrics" -%}
 {%- set default_service_name = "prometheus" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
+{%- set node_type = salt['grains.get']('ConsulNodeType') -%}
 {%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set default_service_port = 9090 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
@@ -21,8 +22,12 @@ consul:
   download_host: releases.hashicorp.com
 
   config:
+    {% if node_type = "server" %}
+    server: true
+    {% else %}
     server: false
-    node_name: {{ name }}-{{ rstr }}
+    {% endif %}
+    node_name: {{ name }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
