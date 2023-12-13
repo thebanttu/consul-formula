@@ -67,8 +67,14 @@ consul:
           args:
             - /usr/local/bin/check_port
             - "3000"
-            - -s
-            - "3000"
+          interval: 10s
+    - name: prometheus-alertmanager
+      port: 9093
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "9093"
           interval: 10s
 
   # scripts:
