@@ -22,7 +22,7 @@ consul:
   download_host: releases.hashicorp.com
 
   config:
-    {% if node_type = "server" %}
+    {% if node_type == "server" %}
     server: true
     {% else %}
     server: false
