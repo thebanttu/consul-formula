@@ -1,6 +1,7 @@
 {%- set name = "logging" -%}
 {%- set default_service_name = "rsyslog" -%}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
+{%- set node_type = salt['grains.get']('ConsulNodeType') -%}
 {%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set default_service_port = 10514 -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
@@ -21,7 +22,11 @@ consul:
   download_host: releases.hashicorp.com
 
   config:
+    {% if node_type == "server" %}
+    server: true
+    {% else %}
     server: false
+    {% endif %}
     node_name: {{ name }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
