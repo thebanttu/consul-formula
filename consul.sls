@@ -1,5 +1,11 @@
+{%- set roles = salt['grains.get']('roles') -%}
+{% if "metrics" in roles %}
 {%- set name = "monitoring-metrics" -%}
 {%- set default_service_name = "prometheus" -%}
+{% elif "logging" in roles %}
+{%- set name = "logging" -%}
+{%- set default_service_name = "rsyslog" -%}
+{% endif %}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set node_type = salt['grains.get']('ConsulNodeType') -%}
 {%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
@@ -50,6 +56,7 @@ consul:
     data_dir: /var/consul
 
   register:
+    {% if "metrics" in roles %}
     - name: {{ default_service_name }}
       port: {{ default_service_port }}
       checks:
@@ -76,7 +83,34 @@ consul:
             - /usr/local/bin/check_port
             - "9093"
           interval: 10s
-
+    {% elif "logging" in roles %}
+    - name: {{ default_service_name }}
+      port: {{ default_service_port }}
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "{{ default_service_port }}"
+            - -s
+            - "{{ ip }}"
+          interval: 10s
+    - name: loki
+      port: 3100
+      checks:
+        - name: check-loki-service
+          args:
+            - /usr/local/bin/check_port
+            - 3100
+          interval: 10s
+    - name: promtail
+      port: 9080
+      checks:
+        - name: check-promtail-service
+          args:
+            - /usr/local/bin/check_port
+            - 9080
+          interval: 10s
+    {% endif %}
   # scripts:
   #   - source: salt://files/consul/check_redis.py
   #     name: /usr/local/share/consul/check_redis.py
