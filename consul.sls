@@ -19,6 +19,10 @@
 {%- set name = "desktop-site" -%}
 {%- set default_service_name = "web" -%}
 {%- set default_service_port = 8009 -%}
+{% elif "admin-portal" in roles %}
+{%- set name = "admin-portal" -%}
+{%- set default_service_name = "admin-portal" -%}
+{%- set default_service_port = 80 -%}
 {% elif "apps" in roles %}
 {%- set name = "apps" -%}
 {% elif "queue" in roles %}
@@ -260,6 +264,15 @@ consul:
           args:
             - /usr/local/bin/check_port
             - "9419"
+          interval: 10s
+    {% elif "admin-portal" in roles %}
+    - name: nginx-exporter
+      port: 9113
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "9113"
           interval: 10s
     {% endif %}
   # scripts:
