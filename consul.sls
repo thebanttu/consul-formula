@@ -100,7 +100,7 @@ consul:
         - name: check-consul-exporter
           args:
             - /usr/local/bin/check_port
-            - 9107
+            - "9107"
           interval: 10s
     - name: node-exporter
       port: 9100
@@ -108,7 +108,7 @@ consul:
         - name: check-node-exporter
           args:
             - /usr/local/bin/check_port
-            - 9100
+            - "9100"
           interval: 10s
     {% if "metrics" in roles %}
     - name: grafana
@@ -134,7 +134,7 @@ consul:
         - name: check-loki-service
           args:
             - /usr/local/bin/check_port
-            - 3100
+            - "3100"
           interval: 10s
     - name: promtail
       port: 9080
