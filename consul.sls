@@ -146,7 +146,7 @@ consul:
         - name: check-service
           args:
             - /usr/local/bin/check_port
-            - 9080
+            - "9080"
           interval: 10s
     {% elif "load-balancer" in roles %}
     - name: haproxy-exporter
