@@ -1,33 +1,25 @@
 {%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set roles = salt['grains.get']('roles') -%}
+{%- set hostname = salt['grains.get']('nodename') -%}
 {% if "metrics" in roles %}
-{%- set name = "monitoring-metrics" -%}
 {%- set default_service_name = "prometheus" -%}
 {%- set default_service_port = 9090 -%}
 {% elif "logging" in roles %}
-{%- set name = "logging" -%}
 {%- set default_service_name = "rsyslog" -%}
 {%- set default_service_port = 10514 -%}
 {% elif "load-balancer" in roles %}
-{%- set name = "load-balancer" -%}
 {%- set default_service_name = "load-balancer" -%}
 {%- set default_service_port = 443 -%}
 {% elif "api" in roles %}
-{%- set name = "betting-api-" ~ rstr -%}
 {%- set default_service_name = "api" -%}
 {%- set default_service_port = 1616 -%}
 {% elif "web" in roles %}
-{%- set name = "desktop-site-" ~ rstr -%}
 {%- set default_service_name = "web" -%}
 {%- set default_service_port = 8009 -%}
 {% elif "admin-portal" in roles %}
-{%- set name = "admin-portal" -%}
 {%- set default_service_name = "admin-portal" -%}
 {%- set default_service_port = 80 -%}
-{% elif "apps" in roles %}
-{%- set name = "apps" -%}
 {% elif "queue" in roles %}
-{%- set name = "rabbbitmq-" ~ rstr -%}
 {%- set default_service_name = "rabbbitmq" -%}
 {%- set default_service_port = 5672 -%}
 {% endif %}
@@ -57,7 +49,7 @@ consul:
     {% else %}
     server: false
     {% endif %}
-    node_name: {{ name }}
+    node_name: {{ hostname }}
     bind_addr: {{ ip }}
     disable_keyring_file: true
     disable_host_node_id: true
