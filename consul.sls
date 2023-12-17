@@ -13,11 +13,11 @@
 {%- set default_service_name = "load-balancer" -%}
 {%- set default_service_port = 443 -%}
 {% elif "api" in roles %}
-{%- set name = "betting-api" ~ rstr -%}
+{%- set name = "betting-api-" ~ rstr -%}
 {%- set default_service_name = "api" -%}
 {%- set default_service_port = 1616 -%}
 {% elif "web" in roles %}
-{%- set name = "desktop-site" ~ rstr -%}
+{%- set name = "desktop-site-" ~ rstr -%}
 {%- set default_service_name = "web" -%}
 {%- set default_service_port = 8009 -%}
 {% elif "admin-portal" in roles %}
@@ -27,7 +27,7 @@
 {% elif "apps" in roles %}
 {%- set name = "apps" -%}
 {% elif "queue" in roles %}
-{%- set name = "rabbbitmq" ~ rstr -%}
+{%- set name = "rabbbitmq-" ~ rstr -%}
 {%- set default_service_name = "rabbbitmq" -%}
 {%- set default_service_port = 5672 -%}
 {% endif %}
