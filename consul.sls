@@ -61,8 +61,6 @@ consul:
     encrypt: "pAAc5HOPD3LDzcG6KgOR8lEFMJsamu1G"
     {% if "metrics" in roles %}
     bootstrap: true
-    {% endif %}
-    {% if node_type == "server" %}
     bootstrap_expect: 1
     {% endif %}
     retry_interval: 15s
