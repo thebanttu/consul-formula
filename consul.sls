@@ -1,3 +1,4 @@
+{%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set roles = salt['grains.get']('roles') -%}
 {% if "metrics" in roles %}
 {%- set name = "monitoring-metrics" -%}
@@ -12,11 +13,11 @@
 {%- set default_service_name = "load-balancer" -%}
 {%- set default_service_port = 443 -%}
 {% elif "api" in roles %}
-{%- set name = "betting-api" -%}
+{%- set name = "betting-api" ~ rstr -%}
 {%- set default_service_name = "api" -%}
 {%- set default_service_port = 1616 -%}
 {% elif "web" in roles %}
-{%- set name = "desktop-site" -%}
+{%- set name = "desktop-site" ~ rstr -%}
 {%- set default_service_name = "web" -%}
 {%- set default_service_port = 8009 -%}
 {% elif "admin-portal" in roles %}
@@ -26,14 +27,13 @@
 {% elif "apps" in roles %}
 {%- set name = "apps" -%}
 {% elif "queue" in roles %}
-{%- set name = "rabbbitmq" -%}
+{%- set name = "rabbbitmq" ~ rstr -%}
 {%- set default_service_name = "rabbbitmq" -%}
 {%- set default_service_port = 5672 -%}
 {% endif %}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set lb_ip = "10.132.0.2" -%}
 {%- set node_type = salt['grains.get']('ConsulNodeType') -%}
-{%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
 {%- set leader_ip = "10.42.8.2" -%}
 
