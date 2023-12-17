@@ -204,7 +204,7 @@ consul:
       checks:
         - name: check-biko-betradar-feeds-fetcher
           args:
-            - /scripts/admin/check_java_app.py
+            - check_app
             - BetradarFeedsFetcher.jar
           interval: 10s
 
@@ -213,7 +213,7 @@ consul:
       checks:
         - name: check-biko-live-odds-consumer
           args:
-            - /scripts/admin/check_java_app.py
+            - check_app
             - BetradarCombinedLiveOddsConsumer.2.0.52.1-jar-with-dependencies.jar
           interval: 10s
 
@@ -222,7 +222,7 @@ consul:
       checks:
         - name: check-biko-betradar-outcome-processor
           args:
-            - /scripts/admin/check_java_app.py
+            - check_app
             - BetradarOutcomeProcessor-2.0.2.jar
           interval: 10s
 
@@ -231,7 +231,7 @@ consul:
       checks:
         - name: check-biko-outcome-processor
           args:
-            - /scripts/admin/check_java_app.py
+            - check_app
             - BikoOutcomeProcessor.live.jar
           interval: 10s
 
@@ -240,7 +240,7 @@ consul:
       checks:
         - name: check-biko-mts-processor
           args:
-            - /scripts/admin/check_java_app.py
+            - check_app
             - MTSProcessor.2.3.2.0-jar-with-dependencies.jar
           interval: 10s
     - name: biko-inbox-consumer
@@ -248,7 +248,7 @@ consul:
       checks:
         - name: check-biko-inbox-consumer
           args:
-            - /scripts/admin/check_java_app.py
+            - check_app
             - inboxConsumer-0.0.1-SNAPSHOT-jar-with-dependencies.jar
           interval: 10s
     {% elif "queue" in roles %}
