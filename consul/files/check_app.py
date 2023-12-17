@@ -4,11 +4,12 @@ import re
 import sys
 import argparse
 import subprocess
+from subprocess import PIPE
 
 def check_app(name):
     cmd = 'ps axu | grep ' + name + ' | grep -v -e grep -e python3'
     cp = subprocess.run(
-            cmd, capture_output=True,
+            cmd, stdout=PIPE, stderr=PIPE,
             universal_newlines=True,
             shell=True)
     if len(cp.stdout.split('\n')) > 1:
