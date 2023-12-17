@@ -1,4 +1,3 @@
-{%- set rstr = salt['random.get_str'](length=3,punctuation=False) -%}
 {%- set roles = salt['grains.get']('roles') -%}
 {%- set hostname = salt['grains.get']('nodename') -%}
 {% if "metrics" in roles %}
@@ -61,10 +60,10 @@ consul:
 
     encrypt: "pAAc5HOPD3LDzcG6KgOR8lEFMJsamu1G"
     {% if node_type == "server" %}
+    bootstrap_expect: 2
+    {% endif %}
+    {% if "metrics" in roles %}
     bootstrap: true
-    bootstrap_expect: 0
-    {% else %}
-    bootstrap_expect: 0
     {% endif %}
     retry_interval: 15s
     retry_join:
