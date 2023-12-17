@@ -89,7 +89,7 @@ consul:
 
   register:
     {% if "apps" not in roles %}
-    - name: biko-{{ default_service_name }}
+    - name: {{ default_service_name }}
       port: {{ default_service_port }}
       checks:
         - name: check-default-service
