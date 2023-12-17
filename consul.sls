@@ -59,10 +59,11 @@ consul:
     datacenter: {{ dc }}
 
     encrypt: "pAAc5HOPD3LDzcG6KgOR8lEFMJsamu1G"
-    {% if node_type == "server" %}
+    {% if "metrics" in roles %}
     bootstrap: true
-    {% else %}
-    bootstrap_expect: 2
+    {% endif %}
+    {% if node_type == "server" %}
+    bootstrap_expect: 1
     {% endif %}
     retry_interval: 15s
     retry_join:
