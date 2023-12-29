@@ -21,6 +21,9 @@
 {% elif "queue" in roles %}
 {%- set default_service_name = "rabbbitmq" -%}
 {%- set default_service_port = 5672 -%}
+{% elif "apps" in roles %}
+{%- set default_service_name = "biko-apps" -%}
+{%- set default_service_port = 8301 -%}
 {% endif %}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set lb_ip = "10.132.0.2" -%}
