@@ -21,6 +21,9 @@
 {% elif "queue" in roles %}
 {%- set default_service_name = "rabbbitmq" -%}
 {%- set default_service_port = 5672 -%}
+{% elif "cache" in roles %}
+{%- set default_service_name = "redis" -%}
+{%- set default_service_port = 6379 -%}
 {% endif %}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set lb_ip = "10.132.0.2" -%}
@@ -257,6 +260,15 @@ consul:
           args:
             - /usr/local/bin/check_port
             - "9419"
+          interval: 10s
+    {% elif "cache" in roles %}
+    - name: redis-exporter
+      port: 9121
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "9121"
           interval: 10s
     {% elif "admin-portal" in roles %}
     - name: nginx-exporter
