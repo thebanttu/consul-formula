@@ -24,6 +24,9 @@
 {% elif "cache" in roles %}
 {%- set default_service_name = "redis" -%}
 {%- set default_service_port = 6379 -%}
+{% elif "database" in roles %}
+{%- set default_service_name = "mysql" -%}
+{%- set default_service_port = 3306 -%}
 {% endif %}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set lb_ip = "10.132.0.2" -%}
@@ -269,6 +272,15 @@ consul:
           args:
             - /usr/local/bin/check_port
             - "9121"
+          interval: 10s
+    {% elif "database" in roles %}
+    - name: mysqld-exporter
+      port: 9104
+      checks:
+        - name: check-service
+          args:
+            - /usr/local/bin/check_port
+            - "9104"
           interval: 10s
     {% elif "admin-portal" in roles %}
     - name: nginx-exporter
