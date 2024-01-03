@@ -32,7 +32,7 @@
 {%- set lb_ip = "10.42.8.8" -%}
 {%- set node_type = salt['grains.get']('ConsulNodeType') -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
-{%- set leader_ip = "10.42.8.2" -%}
+{%- set leader_ip = "10.42.8.68" -%}
 
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
