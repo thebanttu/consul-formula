@@ -1,5 +1,5 @@
 {%- set roles = salt['grains.get']('roles') -%}
-{%- set rstr = salt['random.get_str'](length=3,digits=False,whitespace=False,punctuation=False,uppercase=False) -%}
+{%- set rstr = salt['random.get_str'](length=3,whitespace=False,punctuation=False,uppercase=False,lowercase=False) -%}
 {% if "api" in roles or "web" in roles or "legacy-api" in roles %}
 {%- set hostname = salt['grains.get']('nodename') ~ "-" ~ rstr -%}
 {% else %}
