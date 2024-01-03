@@ -29,7 +29,7 @@
 {%- set default_service_port = 3306 -%}
 {% endif %}
 {%- set ip = salt['grains.get']('ipv4')[0] -%}
-{%- set lb_ip = "10.132.0.2" -%}
+{%- set lb_ip = "10.428.8.8" -%}
 {%- set node_type = salt['grains.get']('ConsulNodeType') -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
 {%- set leader_ip = "10.42.8.2" -%}
