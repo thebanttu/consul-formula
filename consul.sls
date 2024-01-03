@@ -28,7 +28,6 @@
 {%- set default_service_name = "mysql" -%}
 {%- set default_service_port = 3306 -%}
 {% endif %}
-{%- set ip = salt['grains.get']('ipv4')[0] -%}
 {%- set lb_ip = "10.42.8.8" -%}
 {%- set node_type = salt['grains.get']('ConsulNodeType') -%}
 {%- set dc = salt['cmd.shell']('cat /root/.data_center') -%}
@@ -55,7 +54,7 @@ consul:
     server: false
     {% endif %}
     node_name: {{ hostname }}
-    bind_addr: {{ ip }}
+    bind_addr: 0.0.0.0
     disable_keyring_file: true
     disable_host_node_id: true
     enable_local_script_checks: true
