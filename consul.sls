@@ -14,10 +14,10 @@
 {% elif "load-balancer" in roles %}
 {%- set default_service_name = "load-balancer" -%}
 {%- set default_service_port = 443 -%}
-{% elif "api" in roles %}
+{% elif "biko-api" in roles %}
 {%- set default_service_name = "api" -%}
 {%- set default_service_port = 1616 -%}
-{% elif "legacy-api" in roles %}
+{% elif "biko-legacy-api" in roles %}
 {%- set default_service_name = "mo-consumer" -%}
 {%- set default_service_port = 8008 -%}
 {% elif "web" in roles %}
@@ -159,7 +159,7 @@ consul:
             - /usr/local/bin/check_port
             - "9101"
           interval: 10s
-    {% elif "api" in roles %}
+    {% elif "biko-api" in roles %}
     - name: nginx-exporter
       port: 9113
       checks:
@@ -168,7 +168,7 @@ consul:
             - /usr/local/bin/check_port
             - "9113"
           interval: 10s
-    {% elif "legacy-api" in roles %}
+    {% elif "biko-legacy-api" in roles %}
     - name: nginx-exporter
       port: 9113
       checks:
