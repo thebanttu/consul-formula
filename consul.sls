@@ -17,6 +17,9 @@
 {% elif "api" in roles %}
 {%- set default_service_name = "api" -%}
 {%- set default_service_port = 1616 -%}
+{% elif "legacy-api" in roles %}
+{%- set default_service_name = "mo-consumer" -%}
+{%- set default_service_port = 8008 -%}
 {% elif "web" in roles %}
 {%- set default_service_name = "web" -%}
 {%- set default_service_port = 8009 -%}
@@ -165,6 +168,15 @@ consul:
             - /usr/local/bin/check_port
             - "9113"
           interval: 10s
+    {% elif "legacy-api" in roles %}
+    - name: nginx-exporter
+      port: 9113
+      checks:
+        - name: check-nginx-exporter
+          args:
+            - /usr/local/bin/check_port
+            - "9113"
+          interval: 10s
     - name: c2b
       port: 8000
       checks:
@@ -172,14 +184,6 @@ consul:
           args:
             - /usr/local/bin/check_port
             - "8000"
-          interval: 10s
-    - name: mo-consumer
-      port: 8008
-      checks:
-        - name: check-service
-          args:
-            - /usr/local/bin/check_port
-            - "8008"
           interval: 10s
     - name: queue-consumer
       port: 9000
