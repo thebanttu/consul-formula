@@ -1,5 +1,10 @@
 {%- set roles = salt['grains.get']('roles') -%}
+{%- set rstr = salt['random.get_str'](length=3,digits=False,whitespace=False,punctuation=False,uppercase=False) -%}
+{% if "api" in roles or "web" in roles or "legacy-api" in roles %}
+{%- set hostname = salt['grains.get']('nodename') ~ "-" ~ rstr -%}
+{% else %}
 {%- set hostname = salt['grains.get']('nodename') -%}
+{% endif %}
 {% if "metrics" in roles %}
 {%- set default_service_name = "prometheus" -%}
 {%- set default_service_port = 9090 -%}
