@@ -324,10 +324,10 @@ consul_template:
           command: 'echo "Template ran at: "$(date) >> /root/.all-services.txt'
     {% if "load-balancer" in roles %}
     - name: haproxy-config
-      source: salt://haproxy/files/haproxy-zadara.cfg
+      source: salt://haproxy/files/haproxy-zadara.ctmpl
       config:
         template:
-          source: /etc/consul-template/tmpl-source/haproxy-zadara.cfg
+          source: /etc/consul-template/tmpl-source/haproxy-config.ctmpl
           destination: /etc/haproxy/haproxy.cfg
           command: 'systemctl reload haproxy'
     {% endif %}
