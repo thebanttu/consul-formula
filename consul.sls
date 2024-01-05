@@ -1,4 +1,3 @@
-{%- set db_host = salt['saltutil.runner']('mine.get', tgt='roles:db-master', fun='network.ip_addrs', tgt_type='grain')['db-master'][0] -%}
 {%- set roles = salt['grains.get']('roles') -%}
 {%- set rstr = salt['random.get_str'](length=3,whitespace=False,punctuation=False,uppercase=False,lowercase=False) -%}
 {% if "api" in roles or "web" in roles or "legacy-api" in roles %}
