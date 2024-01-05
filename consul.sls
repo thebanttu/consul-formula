@@ -13,7 +13,7 @@
 {%- set default_service_port = 10514 -%}
 {% elif "load-balancer" in roles %}
 {%- set default_service_name = "load-balancer" -%}
-{%- set default_service_port = 443 -%}
+{%- set default_service_port = 80 -%}
 {% elif "biko-api" in roles %}
 {%- set default_service_name = "api" -%}
 {%- set default_service_port = 1616 -%}
@@ -288,6 +288,7 @@ consul:
         - name: check-service
           args:
             - /usr/local/bin/check_port
+            - -s db-master.biko-live.net
             - "9104"
           interval: 10s
     {% elif "admin-portal" in roles %}
